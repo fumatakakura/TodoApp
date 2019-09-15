@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>サインアップ</title>
+</head>
+<body>
+    
+    <h1>サインアップ</h1>
+    <!-- どこに移動したいかをactionに入力 GET送信だとulrに情報が乗るからよくない-->
+    <form action="SignupController.php" method="POST">
+
+        <!-- name属性をつける->連想配列のキーをつける -->
+        <p>ユーザー名</p>
+        <input type="text" name="username">
+
+
+        <!-- typeをpasswordにすると入力した文字が黒丸になる -->
+        <p>パスワード</p>
+        <input type="password" name="password">
+        <br>
+        <input type="submit" value="登録" >
+    </form>
+
+</body>
+</html>

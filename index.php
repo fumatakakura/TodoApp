@@ -1,3 +1,43 @@
+<?php
+//ログイン情報の取得
+//セッションの開始
+session_start();
+
+//ログインしているかチェック
+if(!isset($_SESSION['user'])){
+    //ログインしていない場合は登録画面に遷移
+    header('Location: signup.html');
+}
+
+$user = $_SESSION['user'];
+
+var_dump($user);
+
+
+
+
+
+//一覧表示
+//index.phpとTodo.phpを操作する
+//Todo.phpにgetAllメソッドを作成
+//データベースから全データをtaskを取得して、配列に返す
+//index.phpにTodoクラスのgetAllメソッドを実行して、タスクを全て取得
+//取得したタスクを全て画面に表示する
+
+require_once('Models/Todo.php');
+
+//Todoクラスをインスタンス化
+$todo = new Todo();
+//getAllメソッドを使って、タスクを全て取得
+$tasks = $todo->getAll();
+
+// var_dump($tasks);
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +55,9 @@
             <a href="index.php" class="navbar-brand">TODO APP</a>
             <div class="justify-content-end">
                 <span class="text-light">
-                    SeedKun
+                    <?php echo $user['username'];?>
                 </span>
+                <a class="btn btn-success" href="logout.php">ログアウト</a>
             </div>
         </nav>
     </header>
@@ -25,10 +66,10 @@
         <section>
             <form class="form-row" action="create.php" method="POST" >
                 <div class="col-12 col-md-9 py-2">
-                    <input type="text" class="form-control" placeholder="ADD TODO" name="task">
+                    <input type="text" class="form-control" placeholder="ADD TODO" name="task" id="input-task">
                 </div>
                 <div class="py-2 col-md-3 col-12">
-                    <button type="submit" class="col-12 btn btn-primary btn-block">ADD</button>
+                    <button type="submit" class="col-12 btn btn-primary btn-block " id="add-button">ADD</button>
                 </div>
             </form>
         </section>
@@ -44,31 +85,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>create new website</td>
-                        <td>2019/08/21</td>
+                  <?php foreach($tasks as $task){ ?>
+                    <tr id=<?php echo $task['id']?>>
+                        <td><?php echo $task['name']?></td>
+                        <td><?php echo $task['due_date']?></td>
                         <td>
-                            <a class="text-success" href="edit.php">EDIT</a>
+                            <a class="text-success" href="edit.php?id=<?php echo $task['id']?>">EDIT</a>
                         </td>
                         <td>
-                            <a class="text-danger" href="delete.php">DELETE</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>go to club</td>
-                        <td>2019/10/21</td>
-                        <td>
-                            <a class="text-success" href="edit.php">EDIT</a>
-                        </td>
-                        <td>
-                            <a class="text-danger" href="delete.php">DELETE</a>
+                            <a class="delete-button text-danger" data-hoge="<?php echo $task['id'];?>" href="delete.php?id=<?php echo $task['id']?>">DELETE</a>
                         </td>
                     </tr>
+                  <?php } ?>
+                
                 </tbody>
             </table>  
         </section>
     </main>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
