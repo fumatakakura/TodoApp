@@ -1,6 +1,9 @@
 <?php
+header("Content-type: application/json; charset=utf-8");
 require_once('Models/Todo.php');
 
+
+//ajaxからtaskが送信されてくる
 $task = $_POST['task'];
 
 //todoクラスのインスタンスを作成し
@@ -10,10 +13,14 @@ $todo = new Todo();
 
 
 //todoクラスのcreateメソッドを実行
-$todo->create($_POST['task']);
+$lastId = $todo->create($task);
 
-header('Location: index.php');
-  exit;
+$newtask = $todo->get($lastId);
+
+echo json_encode($newtask);
+
+// header('Location: index.php');
+//   exit;
 
 // echo '<br>';
 // echo $todo->table;
