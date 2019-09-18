@@ -7,7 +7,7 @@ $(function(){
 
          //クリックされたタスクのidを取得
 
-         let id = $(this).data('hoge')
+         let id = $(this).data('hoge');
          
 
 
@@ -53,14 +53,16 @@ $(function(){
         }).done((data)=>{
             //tbodyのなかに、新しいタスク用にtrタグを作成する
             $('tbody').prepend(
-                `<td>${data['name']}</td>
-                <td>${data['due_date']}</td>
-                <td>
-                    <a class="text-success" href="edit.php?id=${data['id']}">EDIT</a>
-                </td>
-                <td>
-                    <a class="delete-button text-danger" data-hoge="${data['id']}" href="delete.php?id=${data['id']}">DELETE</a>
-                </td>`
+                `<tr id="task-${data['id']}">` +
+                `<td>${data['name']}</td>` +
+                `<td>${data['due_date']}</td>` +
+                `<td>` +
+                `<a class="text-success" href="edit.php?id=${data['id']}">EDIT</a>` +
+                `</td>` +
+                `<td>` +
+                `<a class="text-danger delete-button" data-id=${data['id']} href="delete.php?id=${data['id']}">DELETE</a>` +
+                `</td>` +
+                `</tr>`
             );
         }).fail(()=>{
             
