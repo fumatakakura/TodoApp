@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 //ログイン情報の取得
 //セッションの開始
 session_start();
@@ -17,6 +18,8 @@ var_dump($user);
 
 
 
+=======
+>>>>>>> ed115ec8a75632d381a0372705b5b3f725c127b1
 //一覧表示
 //index.phpとTodo.phpを操作する
 //Todo.phpにgetAllメソッドを作成

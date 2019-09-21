@@ -36,7 +36,11 @@ class Todo
         //INSERT文の準備
         $stmt = $this->db_manager->dbh->prepare('INSERT INTO ' . $this->table . '(name) VALUES (?)');
         //準備したものを実行
+<<<<<<< HEAD
         $stmt->execute([$task]);
+=======
+        $stmt->execute([$fuck]);
+>>>>>>> ed115ec8a75632d381a0372705b5b3f725c127b1
 
         //今作成したタスクのidを返す
         return $this->db_manager->dbh->lastInsertId();
